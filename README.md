@@ -13,6 +13,9 @@ A good overview about creating the vectortile data from osm is given in the yout
 
 Download vectortiles (`.mbtiles`) data from here: [http://osm2vectortiles.org/downloads/](http://osm2vectortiles.org/downloads/).
 
+**Note:** The files hosted on osm2vectortiles only go to zoom level 14, and they
+seem a bit patchy to me.
+
 
 ## Tileserver ##
 
@@ -38,6 +41,29 @@ The [Makefile](Makefile) has three targets:
 - `server` runs the python HTTP server
 - `tileserver` runs the tileserver
 - `download` gets you the vectortiles from Rome, Italy
+
+## Convert `.mbtiles` file to directory tree of `.pbf`##
+
+Use [mbutil](https://github.com/mapbox/mbutil).
+
+```bash
+pip install mbutil
+rehash
+```
+
+The first step is to run the python command line utility `mb-util` just obtained:
+
+```bash
+mb-util ./rome_italy.mbtiles ./rome_italy/
+``` 
+
+The result is a directory tree of the form `./rome_italy/{z}/{x}/{y}.png`. Although the filetype indicates `png` files they are in fact gzipped `pbf` files.
+
+Run the bash script [`convert.sh`](convert.sh) to do the gunzipping:
+
+```bash
+./convert.sh rome_italy/	# unzip the png's into pbf's, delete the png's
+```
 
 
 ## Other stuff to look at ##
