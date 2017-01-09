@@ -28,3 +28,5 @@ node_modules
 
 # ignore downloaded .mbtiles files
 *.mbtiles
+
+rome_italy/
